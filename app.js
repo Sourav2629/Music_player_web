@@ -66,7 +66,7 @@ const playMusic = (track, pause = false) => {
 }
 
 async function displayAlbums() {
-    let a = await fetch(`/songs/`);
+    let a = await fetch(`/Songs/`);
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;
@@ -76,10 +76,10 @@ async function displayAlbums() {
     for (let index = 0; index < array.length; index++) {
         const e = array[index];
 
-        if (e.href.includes("/songs")) {
+        if (e.href.includes("/Songs")) {
             let folder = e.href.split("/").slice(-2)[0];
             // Meta data of the folder
-            let a = await fetch(`/songs/${folder}/info.json`);
+            let a = await fetch(`/Songs/${folder}/info.json`);
             let response = await a.json();
             cardContainer.innerHTML = cardContainer.innerHTML + `<div data-folder="${folder}" class="card ">
                         <div class="play">
@@ -90,7 +90,7 @@ async function displayAlbums() {
                                     stroke-linejoin="round" />
                             </svg>
                         </div>
-                        <img src="/songs/${folder}/cover.jpeg" alt="">
+                        <img src="/Songs/${folder}/cover.jpeg" alt="">
                         <h2>${response.title}</h2>
                         <p>${response.description}</p>
                     </div>`
@@ -98,7 +98,7 @@ async function displayAlbums() {
     }
     Array.from(document.getElementsByClassName("card")).forEach(e => {
         e.addEventListener("click", async (item) => {
-            songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`)
+            songs = await getSongs(`Songs/${item.currentTarget.dataset.folder}`)
             playMusic(songs[0])
         })
     })
@@ -106,7 +106,7 @@ async function displayAlbums() {
 }
 
 async function main() {
-    await getSongs("songs/f2");
+    await getSongs("Songs/f2");
     const randomInt = () => Math.floor(Math.random() * songs.length);
     playMusic(songs[randomInt()], true);
 
@@ -189,5 +189,4 @@ async function main() {
 
 main();
 
-
-// i left the video at 4:30:00   
+   
