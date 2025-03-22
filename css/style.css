@@ -423,4 +423,8 @@ body {
     .card{
         width: 110vw;
     }
+     .buttons{
+        display: flex;
+        padding-right: 0;
+    }
 }
